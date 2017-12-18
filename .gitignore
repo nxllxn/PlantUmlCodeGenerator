@@ -1,0 +1,25 @@
+*.class
+target
+
+# Idea enviroment
+.idea/*
+.idea/dictionaries
+out/
+*.iml
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.jar
+*.ear
+#pom.xml
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+src/main/test/com/icekredit/antifraud/controller_new
+src/main/test/com/icekredit/antifraud/service_new
+.idea/
+!/src/main/test/com/fcsgroup/Test.java
+/logs
