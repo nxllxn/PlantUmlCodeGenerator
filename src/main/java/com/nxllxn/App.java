@@ -1,8 +1,8 @@
-package com.icekredit;
+package com.nxllxn;
 
-import com.icekredit.uml.UmlCodeGenerator;
+import com.nxllxn.uml.UmlCodeGenerator;
 
-import static com.icekredit.uml.UmlCodeGenerator.FILE_TYPE_SVG;
+import static com.nxllxn.uml.UmlCodeGenerator.FILE_TYPE_SVG;
 
 /**
  * Hello world!

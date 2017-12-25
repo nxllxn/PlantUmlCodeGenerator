@@ -1,4 +1,4 @@
-package com.icekredit.utils;
+package com.nxllxn.utils;
 
 /**
  * 用于获取当前项目或者jar包执行的路径的工具类

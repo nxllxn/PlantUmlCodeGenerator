@@ -1,6 +1,6 @@
-package com.icekredit.entities;
+package com.nxllxn.entities;
 
-import com.icekredit.utils.ContactUtil;
+import com.nxllxn.utils.ContactUtil;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;

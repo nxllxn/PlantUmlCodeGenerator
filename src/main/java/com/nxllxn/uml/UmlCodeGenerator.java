@@ -1,13 +1,12 @@
-package com.icekredit.uml;
+package com.nxllxn.uml;
 
-import com.icekredit.entities.*;
-import com.icekredit.utils.ConfigUtil;
-import com.icekredit.utils.ContactUtil;
+import com.nxllxn.entities.*;
+import com.nxllxn.utils.ConfigUtil;
+import com.nxllxn.utils.ContactUtil;
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 import net.sourceforge.plantuml.StringUtils;
-import net.sourceforge.plantuml.salt.SaltUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

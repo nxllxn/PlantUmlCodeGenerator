@@ -1,4 +1,4 @@
-package com.icekredit.utils;
+package com.nxllxn.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

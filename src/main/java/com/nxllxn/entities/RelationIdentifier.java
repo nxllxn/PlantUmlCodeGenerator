@@ -1,4 +1,4 @@
-package com.icekredit.entities;
+package com.nxllxn.entities;
 
 /**
  * Created by icekredit on 12/24/16.

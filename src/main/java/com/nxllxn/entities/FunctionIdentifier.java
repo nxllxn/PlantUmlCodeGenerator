@@ -1,4 +1,4 @@
-package com.icekredit.entities;
+package com.nxllxn.entities;
 
 import java.util.List;
 

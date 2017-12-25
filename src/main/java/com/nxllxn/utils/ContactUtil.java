@@ -1,6 +1,6 @@
-package com.icekredit.utils;
+package com.nxllxn.utils;
 
-import com.icekredit.entities.Identifier;
+import com.nxllxn.entities.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;

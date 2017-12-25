@@ -1,4 +1,4 @@
-package com.icekredit.utils;
+package com.nxllxn.utils;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.yaml.snakeyaml.Yaml;
