@@ -17,13 +17,6 @@
         linux：apt-get install graphviz
         windows：http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.msi
 
-## 本工具依赖：
-    <dependency>
-        <groupId>com.icekredit</groupId>
-        <artifactId>uml-code-generator</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </dependency>
-
 ## 配置文件：
     application.yml
     
