@@ -42,7 +42,7 @@ public class App {
 ### java.util.regex包类图图片
 ![java.util.regex包类图图片](images/regex.svg)
 ### 当前项目类图图片
-！[当前项目类图图片](images/codegenerator.svg)
+![当前项目类图图片](images/codegenerator.svg)
 
 ***PS：类图图片源码在images目录中***
 
