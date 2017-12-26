@@ -16,7 +16,7 @@ public class App {
     public static void main(String[] args) {
         ClassScannerConfiguration classScannerConfiguration = new ClassScannerConfiguration();
 
-        classScannerConfiguration.setRootPackage("java.util.regex");
+        classScannerConfiguration.setRootPackage("com.nxllxn.plantuml");
         classScannerConfiguration.setExcludePackages(new HashSet<>());
         classScannerConfiguration.setIncludePackages(new HashSet<>());
         classScannerConfiguration.setScanSubPackages(true);

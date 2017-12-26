@@ -1,0 +1,510 @@
+@startuml
+interface CodeAssembleService { 
+    + {abstract} String assembleClassAnnotation(Set arg0, int arg1) 
+    + {abstract} String assembleTypeAbstractModifier(boolean arg0) 
+    + {abstract} String assemblePackage(String arg0) 
+    + {abstract} String assembleJavaDoc(List arg0, int arg1) 
+    + {abstract} String assembleMethodAnnotation(Set arg0, int arg1) 
+    + {abstract} String assembleFieldAnnotation(Set arg0, int arg1) 
+    + {abstract} String assembleParameterAnnotation(Set arg0, int arg1) 
+    + {abstract} String assembleVisibility(Visibility arg0) 
+    + {abstract} String assembleAbstractModifier(boolean arg0) 
+    + {abstract} String assembleStaticModifier(boolean arg0) 
+    + {abstract} String assembleFinalModifier(boolean arg0) 
+    + {abstract} String assembleSynchronizeModifier(boolean arg0) 
+    + {abstract} String assembleTransientModifier(boolean arg0) 
+    + {abstract} String assembleVolatileModifier(boolean arg0) 
+    + {abstract} String assembleDefaultModifier(boolean arg0) 
+    + {abstract} String assembleNativeModifier(boolean arg0) 
+    + {abstract} String assembleTypeDefinition(FullyQualifiedJavaType arg0) 
+    + {abstract} String assembleClassExtension(FullyQualifiedJavaType arg0) 
+    + {abstract} String assembleInterfaceImplements(Set arg0) 
+    + {abstract} String assembleElementTypeClass() 
+    + {abstract} String assembleElementTypeInterface() 
+    + {abstract} String assembleElementTypeEnum() 
+    + {abstract} String assembleNonStaticImport(String arg0) 
+    + {abstract} String assembleStaticImport(String arg0) 
+    + {abstract} String assembleReturnType(FullyQualifiedJavaType arg0) 
+    + {abstract} String assembleFunctionName(String arg0, boolean arg1) 
+    + {abstract} String assembleFunctionName(String arg0) 
+    + {abstract} String assembleTypeParameters(List arg0) 
+    + {abstract} String assembleParameters(List arg0) 
+    + {abstract} String assembleThrowsExceptions(List arg0) 
+    + {abstract} String assembleCodeBlockBody(List arg0, int arg1) 
+    + {abstract} String assembleVariableArgs(boolean arg0) 
+    + {abstract} String assembleParameterName(String arg0) 
+    + {abstract} String assembleFieldName(String arg0) 
+    + {abstract} String assembleEnumConstant(String arg0, List arg1, List arg2, int arg3) 
+    + {abstract} String assembleTextNode(String arg0) 
+    + {abstract} String assembleXmlAttributeNode(String arg0, String arg1) 
+    + {abstract} String assemblePublicIdAndSystemId(String arg0, String arg1, String arg2) 
+    + {abstract} String assembleXmlHeader() 
+    + {abstract} String assembleElementTypeAnnotation() 
+} 
+
+class TemplateBasedCodeAssembleServiceImpl implements CodeAssembleService { 
+    ~ {static} String PLACE_HOLDER_PATTERN
+    ~ {static} String JAVA_DOC_START_LINE_TEMPLATE
+    ~ {static} String JAVA_DOC_MAIN_LINE_TEMPLATE
+    ~ {static} String JAVA_DOC_END_LINE_TEMPLATE
+    ~ {static} String ANNOTATION_TEMPLATE
+    + {static} String EXTRA_SPACE
+    ~ {static} String EMPTY_STRING_FOR_NO_CODE
+    ~ {static} String INTERFACE_IMPLEMENT_SEPARATOR
+
+    + String assembleClassAnnotation(Set arg0, int arg1) 
+    + String assembleTypeAbstractModifier(boolean arg0) 
+    + String assemblePackage(String arg0) 
+    + String assembleJavaDoc(List arg0, int arg1) 
+    + String assembleMethodAnnotation(Set arg0, int arg1) 
+    + String assembleFieldAnnotation(Set arg0, int arg1) 
+    + String assembleParameterAnnotation(Set arg0, int arg1) 
+    + String assembleVisibility(Visibility arg0) 
+    + String assembleAbstractModifier(boolean arg0) 
+    + String assembleStaticModifier(boolean arg0) 
+    + String assembleFinalModifier(boolean arg0) 
+    + String assembleSynchronizeModifier(boolean arg0) 
+    + String assembleTransientModifier(boolean arg0) 
+    + String assembleVolatileModifier(boolean arg0) 
+    + String assembleDefaultModifier(boolean arg0) 
+    + String assembleNativeModifier(boolean arg0) 
+    + String assembleTypeDefinition(FullyQualifiedJavaType arg0) 
+    + String assembleClassExtension(FullyQualifiedJavaType arg0) 
+    + String assembleInterfaceImplements(Set arg0) 
+    + String assembleElementTypeClass() 
+    + String assembleElementTypeInterface() 
+    + String assembleElementTypeEnum() 
+    + String assembleNonStaticImport(String arg0) 
+    + String assembleStaticImport(String arg0) 
+    + String assembleReturnType(FullyQualifiedJavaType arg0) 
+    + String assembleFunctionName(String arg0, boolean arg1) 
+    + String assembleFunctionName(String arg0) 
+    + String assembleTypeParameters(List arg0) 
+    + String assembleParameters(List arg0) 
+    + String assembleThrowsExceptions(List arg0) 
+    + String assembleCodeBlockBody(List arg0, int arg1) 
+    + String assembleVariableArgs(boolean arg0) 
+    + String assembleParameterName(String arg0) 
+    + String assembleFieldName(String arg0) 
+    + String assembleEnumConstant(String arg0, List arg1, List arg2, int arg3) 
+    + String assembleTextNode(String arg0) 
+    + String assembleXmlAttributeNode(String arg0, String arg1) 
+    + String assemblePublicIdAndSystemId(String arg0, String arg1, String arg2) 
+    + String assembleXmlHeader() 
+    + String assembleElementTypeAnnotation() 
+    + {static} TemplateBasedCodeAssembleServiceImpl getSingleInstance() 
+    ~ String assembleAnnotationWithMultipleLine(Set arg0, int arg1) 
+    ~ String assembleAnnotationWithSingleLine(Set arg0, int arg1) 
+    ~ int normalizeIndentLevel(int arg0) 
+    ~ String assembleAsModifier(boolean arg0, String arg1) 
+    ~ String upperFirstCharacter(String arg0) 
+    ~ String assembleArgumentsList(List arg0, List arg1) 
+} 
+
+class ConfigurationLoader { 
+    ~ {static} Properties properties
+} 
+
+class RegExpUtil { 
+    + {static} Pattern PATTERN_FOR_LAST_SPACE
+    + {static} Pattern PATTERN_FOR_CODE_BLOCK_OPEN_IDENTIFIER
+} 
+
+class AssembleUtil { 
+    + {static} int DEFAULT_INDENT_LEVEL
+    + {static} int INDENT_LEVEL_INCREASED
+    + {static} String LINE_SEPARATOR
+    ~ {static} String LINE_SEPARATOR_PROPERTY_NAME
+    + {static} String DEFAULT_INDEX_STR
+    + {static} String BLOCK_OPEN_IDENTIFIER
+    + {static} String BLOCK_CLOSE_IDENTIFIER
+    + {static} String PACKAGE_SEPERATOR
+    ~ {static} Pattern PATTERN_FOR_EXTRA_EMPTY_LINE
+
+    + {static} void extraEmptyLine(StringBuilder arg0) 
+    + {static} void removeExtraEmptyLineInCodeBlockEnd(StringBuilder arg0) 
+    + {static} void rollbackExtraSpaceInTheEnd(StringBuilder arg0) 
+    + {static} void indentWith(StringBuilder arg0, int arg1) 
+    + {static} void startNewLine(StringBuilder arg0) 
+} 
+
+class PlantUmlCodeGenerator { 
+    ~ ClassScanner classScanner
+    ~ ClassScannerConfiguration classScannerConfiguration
+    ~ Logger logger
+
+    + List generate() 
+    ~ List getAllEnumConstants(Class arg0) 
+    ~ List getAllSuperInterfaces(Class arg0) 
+    ~ List getAllDeclaredMethods(Class arg0) 
+    ~ List getAllDeclaredFields(Class arg0) 
+} 
+
+interface Element { 
+    + {abstract} String getFormattedContent() 
+} 
+
+class EnumConstant { 
+    ~ String enumConstantName
+    ~ List fieldStringValues
+
+    + void setEnumConstantName(String arg0) 
+    + String getEnumConstantName() 
+    + List getFieldStringValues() 
+    + void setFieldStringValues(List arg0) 
+    + String getFormattedContent(int arg0, List arg1) 
+    + String toString() 
+} 
+
+class PrimitiveTypeWrapper extends FullyQualifiedJavaType { 
+    ~ {static} PrimitiveTypeWrapper booleanInstance
+    ~ {static} PrimitiveTypeWrapper byteInstance
+    ~ {static} PrimitiveTypeWrapper characterInstance
+    ~ {static} PrimitiveTypeWrapper doubleInstance
+    ~ {static} PrimitiveTypeWrapper floatInstance
+    ~ {static} PrimitiveTypeWrapper integerInstance
+    ~ {static} PrimitiveTypeWrapper longInstance
+    ~ {static} PrimitiveTypeWrapper shortInstance
+    ~ String toPrimitiveMethod
+
+    + String getToPrimitiveMethod() 
+    + {static} PrimitiveTypeWrapper getBooleanInstance() 
+    + {static} PrimitiveTypeWrapper getByteInstance() 
+    + {static} PrimitiveTypeWrapper getCharacterInstance() 
+    + {static} PrimitiveTypeWrapper getDoubleInstance() 
+    + {static} PrimitiveTypeWrapper getFloatInstance() 
+    + {static} PrimitiveTypeWrapper getIntegerInstance() 
+    + {static} PrimitiveTypeWrapper getLongInstance() 
+    + {static} PrimitiveTypeWrapper getShortInstance() 
+} 
+
+abstract class AbstractCompilationUnit implements CompilationUnit { 
+    # FullyQualifiedJavaType type
+    # List typeParameters
+
+    + void setType(FullyQualifiedJavaType arg0) 
+    + void addTypeParameter(TypeParameter arg0) 
+    + String toString() 
+    + List getTypeParameters() 
+    + FullyQualifiedJavaType getType() 
+} 
+
+class TopLevelEnumeration extends AbstractCompilationUnit { 
+    ~ List fields
+    ~ List methods
+    ~ List enumConstants
+
+    + void addFields(List arg0) 
+    + void addMethods(List arg0) 
+    + void addEnumConstants(List arg0) 
+    + String getFormattedContent() 
+    + void addField(Field arg0) 
+    + void addMethod(Method arg0) 
+    + void addEnumConstant(EnumConstant arg0) 
+    + String toString() 
+    + List getFields() 
+    + List getMethods() 
+    + List getEnumConstants() 
+} 
+
+class TopLevelInterface extends AbstractCompilationUnit { 
+    ~ Set superInterfaces
+    ~ List fields
+    ~ List methods
+
+    + void addSuperInterfaces(List arg0) 
+    + void addFields(List arg0) 
+    + void addMethods(List arg0) 
+    + String getFormattedContent() 
+    + void addField(Field arg0) 
+    + void addMethod(Method arg0) 
+    + void addSuperInterface(FullyQualifiedJavaType arg0) 
+    + String toString() 
+    + List getFields() 
+    + List getMethods() 
+    + Set getSuperInterfaces() 
+} 
+
+class FullyQualifiedJavaType implements Comparable { 
+    ~ {static} String JAVA_LANG
+    ~ {static} FullyQualifiedJavaType intInstance
+    ~ {static} FullyQualifiedJavaType stringInstance
+    ~ {static} FullyQualifiedJavaType booleanPrimitiveInstance
+    ~ {static} FullyQualifiedJavaType objectInstance
+    ~ {static} FullyQualifiedJavaType dateInstance
+    ~ {static} FullyQualifiedJavaType genericTypeInstance
+    ~ String baseShortName
+    ~ String baseQualifiedName
+    ~ boolean explicitlyImported
+    ~ String packageName
+    ~ boolean primitive
+    ~ boolean isArray
+    ~ PrimitiveTypeWrapper primitiveTypeWrapper
+    ~ List typeArguments
+    ~ boolean isWildcardType
+    ~ boolean isBoundedWildcard
+    ~ boolean isExtendsBoundedWildcard
+    + {static} Map KNOWN_NAME_TO_TYPE_MAP
+    ~ {static} String SIMPLE_NAME_FOR_BYTE
+    ~ {static} String SIMPLE_NAME_FOR_SHORT
+    ~ {static} String SIMPLE_NAME_FOR_INT
+    ~ {static} String SIMPLE_ALIAS_FOR_INT
+    ~ {static} String SIMPLE_NAME_FOR_LONG
+    ~ {static} String SIMPLE_NAME_FOR_CHAR
+    ~ {static} String SIMPLE_NAME_FOR_FLOAT
+    ~ {static} String SIMPLE_NAME_FOR_DOUBLE
+    ~ {static} String SIMPLE_NAME_FOR_BOOLEAN
+    ~ {static} String SIMPLE_NAME_FOR_STRING
+    ~ {static} String PACKAGE_SEPARATOR
+    ~ {static} String WILD_CARD_IDENTIFIER
+
+    + String getPackageName() 
+    + String getShortName() 
+    + {static} FullyQualifiedJavaType getIntegerInstance() 
+    + {static} FullyQualifiedJavaType getLongInstance() 
+    + boolean isExplicitlyImported() 
+    + String getFullyQualifiedName() 
+    + String getFullyQualifiedNameWithoutTypeParameters() 
+    + List getImportList() 
+    ~ String calculateActualImport(String arg0) 
+    ~ String assembleWildCardType(String arg0) 
+    + String getShortNameWithoutTypeArguments() 
+    + PrimitiveTypeWrapper getPrimitiveTypeWrapper() 
+    + void addTypeArgument(FullyQualifiedJavaType arg0) 
+    ~ void simpleParse(String arg0) 
+    ~ void genericParse(String arg0) 
+    ~ {static} String getPackageFromFullyQualifiedName(String arg0) 
+    + List getTypeArguments() 
+    + String getCorrespondingValue(String arg0) 
+    + {static} FullyQualifiedJavaType getFullyQualifiedType(String arg0) 
+    + {static} FullyQualifiedJavaType getIntInstance() 
+    + {static} FullyQualifiedJavaType getNewMapInstance() 
+    + {static} FullyQualifiedJavaType getNewListInstance() 
+    + {static} FullyQualifiedJavaType getNewHashMapInstance() 
+    + {static} FullyQualifiedJavaType getNewArrayListInstance() 
+    + {static} FullyQualifiedJavaType getCollectionInstance() 
+    + {static} FullyQualifiedJavaType getNewIteratorInstance() 
+    + {static} FullyQualifiedJavaType getStringInstance() 
+    + {static} FullyQualifiedJavaType getBooleanPrimitiveInstance() 
+    + {static} FullyQualifiedJavaType getObjectInstance() 
+    + {static} FullyQualifiedJavaType getDateInstance() 
+    + {static} FullyQualifiedJavaType getClassInstance() 
+    + {static} FullyQualifiedJavaType getGenericTypeInstance() 
+    + void setPackageName(String arg0) 
+    + boolean equals(Object arg0) 
+    + String toString() 
+    + int hashCode() 
+    + boolean isArray() 
+    + boolean isPrimitive() 
+    + int compareTo(Object arg0) 
+    + int compareTo(FullyQualifiedJavaType arg0) 
+    + void parse(String arg0) 
+} 
+
+class TopLevelAnnotation extends AbstractCompilationUnit { 
+    ~ List methods
+
+    + void addMethods(List arg0) 
+    + String getFormattedContent() 
+    + void addMethod(Method arg0) 
+    + String toString() 
+    + List getMethods() 
+} 
+
+abstract class AbstractElement implements Element { 
+    # Visibility visibility
+    # String name
+
+    + void setVisibility(Visibility arg0) 
+    + Visibility getVisibility() 
+    + String toString() 
+    + String getName() 
+    + void setName(String arg0) 
+} 
+
+class Method extends AbstractElement { 
+    ~ boolean isStatic
+    ~ boolean isAbstract
+    ~ boolean isConstructor
+    ~ FullyQualifiedJavaType returnType
+    ~ List parameters
+
+    + void setAbstract(boolean arg0) 
+    + void setStatic(boolean arg0) 
+    + void setReturnType(FullyQualifiedJavaType arg0) 
+    + void addParameter(Parameter arg0) 
+    + String getFormattedContent() 
+    + void setConstructor(boolean arg0) 
+    + String toString() 
+    + FullyQualifiedJavaType getReturnType() 
+    + boolean isConstructor() 
+    + boolean isAbstract() 
+    + boolean isStatic() 
+    + List getParameters() 
+} 
+
+interface CompilationUnit { 
+    + {abstract} String getFormattedContent() 
+} 
+
+class TopLevelClass extends AbstractCompilationUnit { 
+    ~ FullyQualifiedJavaType superClass
+    ~ Set superInterfaces
+    ~ List fields
+    ~ List methods
+    ~ boolean isAbstract
+
+    + void addSuperInterfaces(List arg0) 
+    + void addFields(List arg0) 
+    + void addMethods(List arg0) 
+    + void setAbstract(boolean arg0) 
+    + void setSuperClass(FullyQualifiedJavaType arg0) 
+    + String getFormattedContent() 
+    + void addField(Field arg0) 
+    + void addMethod(Method arg0) 
+    + void addSuperInterface(FullyQualifiedJavaType arg0) 
+    + FullyQualifiedJavaType getSuperClass() 
+    + String toString() 
+    + List getFields() 
+    + List getMethods() 
+    + Set getSuperInterfaces() 
+    + boolean isAbstract() 
+} 
+
+class Parameter { 
+    ~ FullyQualifiedJavaType type
+    ~ String name
+    ~ boolean isVarAs
+
+    + void setType(FullyQualifiedJavaType arg0) 
+    + void setVarAs(boolean arg0) 
+    + String getFormattedContent() 
+    + boolean isVarAs() 
+    + String toString() 
+    + String getName() 
+    + void setName(String arg0) 
+    + FullyQualifiedJavaType getType() 
+} 
+
+class Field extends AbstractElement { 
+    ~ FullyQualifiedJavaType type
+    ~ boolean isStatic
+
+    + void setType(FullyQualifiedJavaType arg0) 
+    + void setStatic(boolean arg0) 
+    + String getFormattedContent() 
+    + String toString() 
+    + boolean isStatic() 
+    + FullyQualifiedJavaType getType() 
+} 
+
+enum Visibility { 
+    -,
+    ~,
+    #,
+    +;
+
+    + {static} Visibility PRIVATE
+    + {static} Visibility DEFAULT
+    + {static} Visibility PROTECTED
+    + {static} Visibility PUBLIC
+    ~ String visibility
+    ~ {static} Visibility; $VALUES
+
+    + {static} Visibility from(int arg0) 
+    + String toString() 
+    + {static} Visibility; values() 
+    + {static} Visibility valueOf(String arg0) 
+} 
+
+class TypeParameter { 
+    ~ List extendsTypes
+    ~ String name
+
+    + String getFormattedContent() 
+    + List getExtendsTypes() 
+    + void addExtendType(FullyQualifiedJavaType arg0) 
+    + void addExtendsTypes(List arg0) 
+    + String toString() 
+    + String getName() 
+    + void setName(String arg0) 
+} 
+
+class PrimitivePlantUmlCodeFileWriter extends AbstarctWriter { 
+    ~ String fileName
+    ~ Logger logger
+
+    ~ {static} void lambda$write$0(StringBuilder arg0, CompilationUnit arg1) 
+    + void write() 
+} 
+
+class UmlDiagramWriter extends AbstarctWriter { 
+    ~ String fileName
+    ~ String fileType
+    + {static} String FILE_TYPE_SVG
+    + {static} String FILE_TYPE_PNG
+    ~ Logger logger
+
+    ~ {static} void lambda$write$1(StringBuilder arg0, CompilationUnit arg1) 
+    + void write() 
+} 
+
+abstract class AbstarctWriter implements Writer { 
+    # List compilationUnits
+} 
+
+interface Writer { 
+    + {abstract} void write() 
+} 
+
+class App { 
+    + {static} void main(String; arg0) 
+} 
+
+class ClassScanner { 
+    ~ Set includePackages
+    ~ Set excludePackages
+    ~ boolean isScanSubPackages
+    ~ boolean isScanInnerType
+    ~ {static} String JAVA_HOME
+    ~ {static} String RT_JAR_PATH
+    ~ {static} String JAR_FILE_NAME_SUFFIX
+    ~ {static} String CLASS_FILE_NAME_SUFFIX
+    ~ Logger logger
+
+    + List scan() 
+    + {static} ClassScanner$ScannerBuilder builder() 
+    ~ void scanClassesDirHelper(String arg0, File arg1, List arg2) 
+    ~ String getFilePathFromUrl(URL arg0) 
+    ~ boolean lambda$isNeedToScan$5(String arg0, String arg1) 
+    ~ {static} boolean lambda$isNeedToScan$4(String arg0, String arg1) 
+    ~ boolean isJarFile(String arg0) 
+    ~ void scanClassesDir(String arg0, List arg1) 
+    ~ boolean isClassFile(String arg0) 
+    ~ boolean isClassFile(File arg0) 
+    ~ void scanJarFile(String arg0, List arg1) 
+    ~ boolean isNeedToScan(String arg0, Set arg1, Set arg2) 
+    ~ boolean lambda$scanClassesDirHelper$3(File arg0) 
+    ~ boolean lambda$scanClassesDir$2(File arg0) 
+} 
+
+class ClassScannerConfiguration { 
+    ~ String rootPackage
+    ~ Set includePackages
+    ~ Set excludePackages
+    ~ boolean isScanSubPackages
+    ~ boolean isScanInnerType
+
+    + Set getExcludePackages() 
+    + void setRootPackage(String arg0) 
+    + void setExcludePackages(Set arg0) 
+    + void setIncludePackages(Set arg0) 
+    + void setScanSubPackages(boolean arg0) 
+    + void setScanInnerType(boolean arg0) 
+    + boolean isScanSubPackages() 
+    + boolean isScanInnerType() 
+    + String getRootPackage() 
+    + Set getIncludePackages() 
+} 
+
+@enduml
